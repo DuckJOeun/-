@@ -42,7 +42,7 @@ button {
     overflow-y: auto;
     white-space: normal;
     word-wrap: break-word;
-    font-size: 25px;
+    font-size: 22px;
 }
 ::-webkit-scrollbar{
     width: 6px;
