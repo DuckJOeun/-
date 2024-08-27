@@ -89,3 +89,26 @@ body {
 #게임판 > .card{
     width: calc(100% - 4px);
 }
+
+#완료화면 {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content :space-evenly;
+
+    font-size: xx-large;
+}
+#완료화면 button {
+    font-size: xx-large;
+    font-weight: bold;
+    padding: 5%;
+    margin-bottom: 30%;
+
+    border-radius: 15%;
+    border-color: #674625;
+    color:rgb(94, 72, 46);
+    background-color:rgb(220, 218, 198) ;
+}

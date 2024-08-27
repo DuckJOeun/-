@@ -41,7 +41,6 @@ window.onload = function() {
     }
     // 게임 시작 타이머 설정
     timer = setInterval(readyHandler, 1000);
-    // timer = setInterval(gameCountHandler, 1000);
 }
 
 const readyHandler = () => {
@@ -65,6 +64,7 @@ const readyHandler = () => {
 /* 게임 카운트다운*/
 let countdown_sec = 5;
 const gameCountdown = document.getElementById("게임_text");
+
 const gameCountHandler = () => {
     countdown_sec = countdown_sec - 1;
     
@@ -79,7 +79,10 @@ const gameCountHandler = () => {
         }
         // 카드에 이벤트 등록
         for (let idx = 1; idx <= 8; idx++) {
-            document.getElementById(idx + "번").addEventListener('click', () => cardClick(idx));
+            let element = document.getElementById(idx + "번");
+            const handleCardClick = () => cardClick(idx);
+            element.addEventListener('click', handleCardClick);
+            element.handleCardClick = handleCardClick;
         }
     }
     else {
@@ -174,4 +177,40 @@ function cardClick(index) {
 /* 게임 완료 */
 function gameClear() {
     console.log("게임 완료!");
+    
+    setTimeout(function(){
+        document.getElementById("게임화면").style.display = 'none';
+        document.getElementById("완료화면").style.display = 'flex';
+    }, 1000);
+}
+
+/* 한 번 더 게임하기 */
+function restart() {
+    console.log("한 번 더 게임하기");
+    for (let i=1; i<=8; i++) {
+        card_opened[i] = 0;
+        card_cleared[i] = 0;
+    }
+    clickPair = 0;
+    card1 = 0;
+    card2 = 0;
+    clearPair = 0;
+    countdown_sec = 6;
+
+    // 카드에서 이벤트 제거
+    for (let idx = 1; idx <= 8; idx++) {
+        let element = document.getElementById(idx + "번");
+        element.removeEventListener('click', element.handleCardClick);
+    }
+
+    Cards.splice(1);
+    initCards();
+    for (let i=1; i<=8; i++) {
+        card_front(i);
+    }
+    gameCountdown.innerText = "5초 후에 카드가 뒤집힙니다";
+    document.getElementById("완료화면").style.display = 'none';
+    document.getElementById("게임화면").style.display = 'flex';
+
+    timer = setInterval(gameCountHandler, 1000);
 }
